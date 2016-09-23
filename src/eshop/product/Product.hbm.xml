@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <!--private  Integer pid;-->
+    <!--private Integer pname;-->
+    <!--private Double market_price;-->
+    <!--private Double eshop_price;-->
+    <!--private String image;-->
+    <!--private String pdesc;-->
+    <!--private Integer is_hot;-->
+    <!--private Date pdate;-->
+    <class name="eshop.product.Product" table="product">
+        <id name="pid">
+            <generator class="native"/>
+        </id>
+        <property name="pname"/>
+        <property name="market_price"/>
+        <property name="shop_price"/>
+        <property name="image"/>
+        <property name="pdesc"/>
+        <property name="is_hot"/>
+        <property name="pdate"/>
+        <many-to-one name="categorySecond" column="csid" class="eshop.categorysecond.CategorySecond"/>
+    </class>
+</hibernate-mapping>

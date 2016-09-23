@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="eshop.categorysecond.CategorySecond">
+        <id name="csid">
+            <generator class="native"/>
+        </id>
+        <property name="csname"/>
+        <many-to-one name="category" class="eshop.category.Category" column="cid" lazy="false" cascade="save-update,delete"/>
+        <set name="products">
+            <key column="csid"></key>
+            <one-to-many class="eshop.product.Product"/>
+        </set>
+    </class>
+</hibernate-mapping>

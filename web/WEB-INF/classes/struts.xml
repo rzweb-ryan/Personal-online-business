@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <constant name="struts.devMode" value="false" />
+
+
+	<package name="default" namespace="/" extends="struts-default">
+		<interceptors>
+			<interceptor name="adminInterceptor" class="eshop.interceptor.AdminInterceptor"/>
+		</interceptors>
+		<global-results>
+			<result name="login">WEB-INF/jsp/login.jsp</result>
+			<result name="adminLogin">admin/index.jsp</result>
+		</global-results>
+		<action name="checkImg" class="checkImg"></action>
+		<!--indexPage-->
+		<action name="index" class="indexAction">
+			<result name="indexSuccess">/WEB-INF/jsp/index.jsp</result>
+		</action>
+		<!--userPage-->
+		<action name="user_*" class="eshop.user.UserAction" method="{1}">
+			<result name="regPageSuccess">WEB-INF/jsp/reg.jsp</result>
+			<result name="loginPageSuccess">WEB-INF/jsp/login.jsp</result>
+			<result name="regSuccess">WEB-INF/jsp/msg.jsp</result>
+			<result name="regInput">WEB-INF/jsp/reg.jsp</result>
+			<result name="loginInput">WEB-INF/jsp/login.jsp</result>
+			<result name="loginSuccess" type="chain">index</result>
+			<result name="logoutSuccess" type="chain">index</result>
+
+		</action>
+
+		<!--product Action-->
+		<action name="product_*" class="productAction" method="{1}">
+			<result name="showSuccess">/WEB-INF/jsp/category.jsp</result>
+			<result name="show2Success">/WEB-INF/jsp/category2.jsp</result>
+			<result name="descSuccess">/WEB-INF/jsp/desc.jsp</result>
+			<result name="adminListSuccess">admin/product/list.jsp</result>
+			<result name="addPageSuccess">admin/product/add.jsp</result>
+			<result name="addSuccess" type="redirectAction">product_adminList.action?page=1</result>
+			<result name="deleteSuccess" type="redirectAction">product_adminList.action?page=1</result>
+			<interceptor-ref name="adminInterceptor">
+				<param name="includeMethods">adminList,addPage,add,delete</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"/>
+		</action>
+		<!--cart action-->
+		<action name="cart_*" class="cartAction" method="{1}">
+			<result name="addSuccess">/WEB-INF/jsp/cart.jsp</result>
+			<result name="show">/WEB-INF/jsp/cart.jsp</result>
+		</action>
+
+		<!--order action-->
+		<action name="order_*" class="orderAction" method="{1}">
+			<result name="placeSuccess">/WEB-INF/jsp/order.jsp</result>
+			<result name="callBackSuccess">/WEB-INF/jsp/msg.jsp</result>
+			<result name="listSuccess">/WEB-INF/jsp/orderList.jsp</result>
+			<result name="updateStateSuccess" type="redirectAction">order_list.action?page=1</result>
+			<result name="adminFindAllSuccess">admin/order/list.jsp</result>
+			<result name="adminUpdateStateSuccess" type="redirectAction">order_adminFindAll.action?page=1</result>
+			<interceptor-ref name="adminInterceptor">
+				<param name="includeMethods">adminFindAll,adminUpdateState</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"/>
+		</action>
+
+		<action name="adminUser_*" class="adminUserAction" method="{1}">
+			<result name="loginSuccess">admin/home.jsp</result>
+			<result name="input">admin/index.jsp</result>
+			<result name="adminFindAllSuccess">admin/user/list.jsp</result>
+			<result name="deleteSuccess">adminUser_adminFindAll.action?page=1</result>
+
+			<interceptor-ref name="adminInterceptor">
+				<param name="includeMethods">adminFindAll,delete</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"/>
+
+		</action>
+		<action name="category_*" class="categoryAction" method="{1}">
+			<result name="findAllSuccess">admin/category/list.jsp</result>
+			<result name="editSuccess">admin/category/edit.jsp</result>
+			<result name="saveSuccess" type="redirectAction">category_findAll</result>
+			<result name="deleteSuccess" type="redirectAction">category_findAll</result>
+
+			<interceptor-ref name="adminInterceptor">
+				<param name="includeMethods">findAll,edit,save,delete</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"/>
+		</action>
+		<action name="categorySecond_*" class="eshop.categorysecond.CategorySecondAction" method="{1}">
+			<result name="findAllSuccess">admin/categorysecond/list.jsp</result>
+			<result name="editSuccess">admin/categorysecond/edit.jsp</result>
+			<result name="addPageSuccess">admin/categorysecond/add.jsp</result>
+			<result name="saveSuccess" type="redirectAction">categorySecond_adminFindAll.action?page=1</result>
+			<result name="deleteSuccess" type="redirectAction">categorySecond_adminFindAll.action?page=1</result>
+			<result name="updateSuccess" type="redirectAction">categorySecond_adminFindAll.action?page=1</result>
+
+			<interceptor-ref name="adminInterceptor">
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"/>
+		</action>
+	</package>
+
+</struts>

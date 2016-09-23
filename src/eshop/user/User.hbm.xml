@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="eshop.user.User" table="user">
+        <id name="uid">
+            <generator class="native"/>
+        </id>
+        <property name="username" length="20"/>
+        <property name="password" length="20"/>
+        <property name="name" length="40"/>
+        <property name="email" length="40"/>
+        <property name="phone" length="20"/>
+        <property name="addr" length="200"/>
+        <property name="sex" length="10"/>
+        <property name="state" length="20"/>
+        <property name="code" length="100"/>
+    </class>
+</hibernate-mapping>
